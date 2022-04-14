@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Hero } from './hero';
-import { HEROES } from '../mock-heroes';
+import { HeroService } from '../hero.service';
+
 @Component({
   selector: 'app-heroes',
   templateUrl: './heroes.component.html',
@@ -13,13 +14,25 @@ export class HeroesComponent implements OnInit {
     name: 'Windstorm',
   };
 
-  selectedHero?: Hero;
   // passing from mock-heroes file to heroes variable
-  heroes = HEROES;
+  // heroes = HEROES;
 
-  constructor() {}
+  // add service here
+  heroes: Hero[] = [];
 
-  ngOnInit(): void {}
+  // declare selectedHero var if it's existing from interface Hero
+  selectedHero?: Hero;
+
+  // define private service
+  constructor(private heroService: HeroService) {}
+
+  getHeroes(): void {
+    this.heroes = this.heroService.getHeroes();
+  }
+
+  ngOnInit(): void {
+    this.getHeroes();
+  }
 
   onSelect(hero: Hero): void {
     this.selectedHero = hero;
