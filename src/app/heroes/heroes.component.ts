@@ -1,4 +1,3 @@
-import { MessageService } from './../message.service';
 import { Component, OnInit } from '@angular/core';
 import { Hero } from './hero';
 import { HeroService } from '../hero.service';
@@ -22,30 +21,21 @@ export class HeroesComponent implements OnInit {
   heroes: Hero[] = [];
 
   // declare selectedHero var if it's existing from interface Hero
-  selectedHero?: Hero;
+  // selectedHero?: Hero;
 
   // define private service
-  constructor(
-    private heroService: HeroService,
-    private messageService: MessageService
-  ) {}
+  constructor(private heroService: HeroService) {}
 
   // original way to get data from service
   // getHeroes(): void {
   //   this.heroes = this.heroService.getHeroes();
   // }
 
-  // observable way to get data from service (it will be wait for response async)
-  getHeroes(): void {
-    this.heroService.getHeroes().subscribe((heroes) => (this.heroes = heroes));
-  }
-
   ngOnInit(): void {
     this.getHeroes();
   }
-
-  onSelect(hero: Hero): void {
-    this.selectedHero = hero;
-    this.messageService.add(`HeroesComponent: Selected hero id=${hero.id}`);
+  // observable way to get data from service (it will be wait for response async)
+  getHeroes(): void {
+    this.heroService.getHeroes().subscribe((heroes) => (this.heroes = heroes));
   }
 }
